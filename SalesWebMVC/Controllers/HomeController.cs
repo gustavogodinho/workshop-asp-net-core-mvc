@@ -17,6 +17,7 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Privacy()
         {
+            ViewData["Teste"] = "gustavo.godinho@ituran.com.br";
             return View();
         }
 
