@@ -86,6 +86,24 @@ namespace SalesWebMVC.Controllers
 
         }
 
+        public IActionResult Edit(int? id)
+        {
+            if (id == null) 
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Department> departments = _departmentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            return View(viewModel);
+        }
+
 
     }
 }
