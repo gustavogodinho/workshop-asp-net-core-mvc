@@ -12,6 +12,7 @@ namespace SalesWebMVC.Models
         public double BaseSalary { get; set; }
         public DateTime BirtDate { get; set; }
         public Department Department { get; set; }
+        public int DepartmentId { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
         public Seller()
@@ -20,6 +21,16 @@ namespace SalesWebMVC.Models
         public Seller(int id, string name, string email, double baseSalary, DateTime birtDate, Department department)
         {
             Id = id;
+            Name = name;
+            Email = email;
+            BaseSalary = baseSalary;
+            BirtDate = birtDate;
+            Department = department;
+        }
+
+        public Seller(string name, string email, double baseSalary, DateTime birtDate, Department department)
+        {
+            
             Name = name;
             Email = email;
             BaseSalary = baseSalary;
