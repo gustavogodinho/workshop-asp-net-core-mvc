@@ -1,8 +1,7 @@
-﻿using SalesWebMVC.Models;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesWebMVC.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SalesWebMVC.Services
 {
@@ -19,7 +18,7 @@ namespace SalesWebMVC.Services
         {
             return _context.sellers.ToList();
         }
-        
+
         public void Insert(Seller seller)
         {
             _context.Add(seller);
@@ -28,7 +27,7 @@ namespace SalesWebMVC.Services
 
         public Seller FindById(int id)
         {
-            return _context.sellers.FirstOrDefault(x => x.Id == id);
+            return _context.sellers.Include(obj => obj.Department).FirstOrDefault(x => x.Id == id);
         }
 
         public void Remove(int id)
