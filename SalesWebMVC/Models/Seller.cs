@@ -18,10 +18,13 @@ namespace SalesWebMVC.Models
         public string Email { get; set; }
 
         [Display(Name = "Base Salary")]
+        [DisplayFormat(DataFormatString ="{0:F2}")]
         //[Required(ErrorMessage = "Please enter seller Base Salary.")]
         public double BaseSalary { get; set; }
 
-        [Display(Name = "Birthday")]
+        [Display(Name = "Birth Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirtDate { get; set; }
 
         public Department Department { get; set; }
