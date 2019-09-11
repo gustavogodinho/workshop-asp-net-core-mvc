@@ -41,7 +41,7 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _sellerService.Insert(seller);
             }
