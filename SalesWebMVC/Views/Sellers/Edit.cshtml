@@ -10,28 +10,32 @@
 <hr />
 
 <form asp-action="Edit">
-    
+
 
     <div class="row">
         <input type="hidden" asp-for="Seller.Id" />
         <div class="col-6 col-md">
             <label asp-for="Seller.Name" class="control-label"></label>
+            <span asp-validation-for="Seller.Name" class="text-danger"></span>
             <input asp-for="Seller.Name" class="form-control" />
 
         </div>
 
         <div class="col-6 col-md">
             <label asp-for="Seller.Email" class="control-label"></label>
+            <span asp-validation-for="Seller.Email" class="text-danger"></span>
             <input asp-for="Seller.Email" class="form-control" />
         </div>
         <div class="col-6 col-md">
             <label asp-for="Seller.BirtDate" class="control-label"></label>
+            <span asp-validation-for="Seller.BirtDate" class="text-danger"></span>
             <input asp-for="Seller.BirtDate" class="form-control" />
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <label asp-for="Seller.BaseSalary" class="control-label"></label>
+            <span asp-validation-for="Seller.BaseSalary" class="text-danger"></span>
             <input asp-for="Seller.BaseSalary" class="form-control" />
         </div>
         <div class="col-md-4">
@@ -51,4 +55,6 @@
 
 
 </form>
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

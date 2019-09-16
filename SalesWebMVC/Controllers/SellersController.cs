@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
-using SalesWebMVC.Services.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SalesWebMVC.Controllers
 {
@@ -24,10 +22,10 @@ namespace SalesWebMVC.Controllers
         }
         public IActionResult Index()
         {
-            
-                var list = _sellerService.FindAll();
-                return View(list.OrderByDescending(x=> x.Name));
-            
+
+            var list = _sellerService.FindAll();
+            return View(list.OrderByDescending(x => x.Name));
+
         }
 
         public IActionResult Create()
@@ -41,19 +39,23 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return View(seller);
+            }
+            else
             {
                 _sellerService.Insert(seller);
+                return RedirectToAction(nameof(Index));
             }
-                
-            return RedirectToAction(nameof(Index));
+
         }
 
-        public IActionResult Delete( int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new {message = "Id not provider" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provider" });
             }
 
             //value pra caso esse exista
@@ -95,7 +97,7 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id == null) 
+            if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provider" });
             }
@@ -115,6 +117,11 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(seller);
+            }
+
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
@@ -128,7 +135,7 @@ namespace SalesWebMVC.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-           
+
         }
 
         public IActionResult Error(string message)
@@ -140,7 +147,7 @@ namespace SalesWebMVC.Controllers
             };
 
             return View(viewModel);
-        
+
         }
 
 

@@ -10,16 +10,19 @@ namespace SalesWebMVC.Models
         public int Id { get; set; }
 
         [Display(Name = "Name")]
-        //[Required(ErrorMessage = "Please enter seller name.")]
+        [Required(ErrorMessage = "{0} required.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "{0} Deve ser maior que {1}")]
         public string Name { get; set; }
 
         [Display(Name = "E-mail")]
-        //[Required(ErrorMessage = "Please enter seller e-mail.")]
+        [Required(ErrorMessage = "{0} required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid e-mail.")]
         public string Email { get; set; }
 
         [Display(Name = "Base Salary")]
-        [DisplayFormat(DataFormatString ="{0:F2}")]
-        //[Required(ErrorMessage = "Please enter seller Base Salary.")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Required(ErrorMessage = "{0} required.")]
+        [Range(100.00, 5000.00, ErrorMessage = "{0} must be from {1} to {2}")]
         public double BaseSalary { get; set; }
 
         [Display(Name = "Birth Date")]
@@ -46,7 +49,7 @@ namespace SalesWebMVC.Models
 
         public Seller(string name, string email, double baseSalary, DateTime birtDate, Department department)
         {
-            
+
             Name = name;
             Email = email;
             BaseSalary = baseSalary;
