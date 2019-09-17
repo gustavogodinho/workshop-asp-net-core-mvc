@@ -3,6 +3,7 @@ using SalesWebMVC.Models;
 using SalesWebMVC.Services.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SalesWebMVC.Services
 {
@@ -15,32 +16,34 @@ namespace SalesWebMVC.Services
             _context = context;
         }
 
-        public List<Seller> FindAll()
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.sellers.ToList();
+            return await _context.sellers.ToListAsync();
         }
 
-        public void Insert(Seller seller)
+        public async Task InsertAsync(Seller seller)
         {
             _context.Add(seller);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Seller FindById(int id)
+        public async Task<Seller> FindByIdAsync(int id)
         {
-            return _context.sellers.Include(obj => obj.Department).FirstOrDefault(x => x.Id == id);
+            return await _context.sellers.Include(obj => obj.Department).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.sellers.Find(id);
+            var obj = await _context.sellers.FindAsync(id);
             _context.sellers.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Seller seller)
+        public async Task UpdateAsync(Seller seller)
         {
-            if (!_context.sellers.Any(x => x.Id == seller.Id))
+            bool hasAny = await _context.sellers.AnyAsync(x => x.Id == seller.Id);
+
+            if (!hasAny)
             {
                 throw new NotFoundException("Id not found!");
             }
@@ -48,7 +51,7 @@ namespace SalesWebMVC.Services
             try
             {
                 _context.Update(seller);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
