@@ -18,7 +18,7 @@ namespace SalesWebMVC.Services
 
         public async Task<List<Seller>> FindAllAsync()
         {
-            return await _context.sellers.ToListAsync();
+            return await _context.Sellers.ToListAsync();
         }
 
         public async Task InsertAsync(Seller seller)
@@ -29,15 +29,15 @@ namespace SalesWebMVC.Services
 
         public async Task<Seller> FindByIdAsync(int id)
         {
-            return await _context.sellers.Include(obj => obj.Department).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Sellers.Include(obj => obj.Department).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task RemoveAsync(int id)
         {
             try
             {
-                var obj = await _context.sellers.FindAsync(id);
-                _context.sellers.Remove(obj);
+                var obj = await _context.Sellers.FindAsync(id);
+                _context.Sellers.Remove(obj);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException e)
@@ -51,7 +51,7 @@ namespace SalesWebMVC.Services
 
         public async Task UpdateAsync(Seller seller)
         {
-            bool hasAny = await _context.sellers.AnyAsync(x => x.Id == seller.Id);
+            bool hasAny = await _context.Sellers.AnyAsync(x => x.Id == seller.Id);
 
             if (!hasAny)
             {

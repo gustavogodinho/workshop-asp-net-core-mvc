@@ -16,7 +16,7 @@ namespace SalesWebMVC.Data
 
         public void Seed()
         {
-            if (_context.Department.Any() || _context.sellers.Any() || _context.salesRecords.Any())
+            if (_context.Department.Any() || _context.Sellers.Any() || _context.SalesRecords.Any())
             {
                 return; //DB has been seeded
             }
@@ -39,7 +39,7 @@ namespace SalesWebMVC.Data
             Seller s7 = new Seller("Gustavo Godinho", "gustavogodinho6@msn.com", 100.0, new DateTime(1998, 4, 21), d1);
 
 
-            _context.sellers.AddRange(s1, s2, s3, s4, s5, s6, s7);
+            _context.Sellers.AddRange(s1, s2, s3, s4, s5, s6, s7);
             _context.SaveChanges();
 
             SalesRecord r1 = new SalesRecord( new DateTime(2018, 09, 25), 11000.0, SaleStatus.Billed, s1);
@@ -73,7 +73,7 @@ namespace SalesWebMVC.Data
             SalesRecord r29 = new SalesRecord( new DateTime(2018, 10, 23), 12000.0, SaleStatus.Billed, s5);
             SalesRecord r30 = new SalesRecord( new DateTime(2018, 10, 12), 5000.0, SaleStatus.Billed, s2);
             
-            _context.salesRecords.AddRange(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10,
+            _context.SalesRecords.AddRange(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10,
                  r11, r12, r13, r14, r15, r16, r17, r18, r19, r20,
                  r21, r22, r23, r24, r25, r26, r27, r28, r29, r30
              );
