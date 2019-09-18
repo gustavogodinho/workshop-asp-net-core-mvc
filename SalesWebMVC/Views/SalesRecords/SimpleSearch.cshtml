@@ -6,6 +6,14 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<script>
+    function myalert() {
+        alert("Welcome to GeeksforGeeks.\n " +
+            "It is the best portal for computer" +
+            "science enthusiasts!");
+    }
+</script>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <form class="navbar-form navbar-left" role="search">
@@ -62,33 +70,52 @@
                 </tr>
             </thead>
 
+            @if (Model.Count() > 0)
+            {
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Seller.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Seller.Department.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        </tr>
+                    }
 
 
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Seller.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Seller.Department.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Amount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                    </tr>
-                }
-            </tbody>
+                </tbody>
+
+            }
+            else
+            {
+                <script type="text/javascript">
+                    window.onload = function () {
+                        alert("Data not found!");
+                    };
+                </script>
+            }
+
         </table>
     </div>
+
+
+
+
 </div>
+
