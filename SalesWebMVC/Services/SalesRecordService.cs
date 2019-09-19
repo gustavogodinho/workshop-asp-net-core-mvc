@@ -18,28 +18,6 @@ namespace SalesWebMVC.Services
 
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
-            var result = from obj  in _context.SalesRecords select obj;
-
-            if (minDate.HasValue)
-            {
-                result = result.Where(x => x.Date >= minDate.Value);
-            }
-            if (maxDate.HasValue)
-            {
-                result = result.Where(x => x.Date <= maxDate.Value);
-            }
-
-            return await result
-                .Include(x => x.Seller)
-                .Include(x => x.Seller.Department)
-                .OrderByDescending(x => x.Date)
-                .ToListAsync();
-        }
-
-        public async Task<List<IGrouping<Department,SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
-        {
-            // Para Agrupar usar Igrouping<>
-
             var result = from obj in _context.SalesRecords select obj;
 
             if (minDate.HasValue)
@@ -55,11 +33,48 @@ namespace SalesWebMVC.Services
                 .Include(x => x.Seller)
                 .Include(x => x.Seller.Department)
                 .OrderByDescending(x => x.Date)
+                .ToListAsync();
+        }
+
+        public async Task<List<IGrouping<Department, SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
+        {
+            // Para Agrupar usar Igrouping<>
+
+            var result = from obj in _context.SalesRecords select obj;
+
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+
+
+            return await result
+                .Include(x => x.Seller)
+                .Include(x => x.Seller.Department)
+                .OrderByDescending(x => x.Date)
                 .GroupBy(x => x.Seller.Department)
                 .ToListAsync();
         }
 
+        public List<NoSales> SellersNoSales()
+        {
+            return  _context.Query<NoSales>(
+                $@"select   s.Name as NameSeller,
+                            s.Email,
+	                        d.Name
+	                from sellers s 
+		                left join salesRecords sr
+		                  on s.Id = sr.SellerId
+		                inner join Department d
+		                  on s.DepartmentId = d.Id
+		                and sr.Id is null"
+                ).ToList();
+        }
 
-
+      
     }
 }

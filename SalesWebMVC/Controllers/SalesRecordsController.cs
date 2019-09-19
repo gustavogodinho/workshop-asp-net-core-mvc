@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SalesWebMVC.Controllers
@@ -55,6 +59,17 @@ namespace SalesWebMVC.Controllers
             return View(result);
         }
 
+        public IActionResult NotSales()
+        {
+           
+            var r = _salesRecordsService.SellersNoSales();
+
+            
+            return View(r);
+
+        }
+
+      
 
     }
 }
