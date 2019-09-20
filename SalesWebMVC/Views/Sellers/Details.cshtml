@@ -16,37 +16,39 @@
         <dt>
             @Html.DisplayNameFor(x => x.Name)
         </dt>
-        <dd>
+        <dd class ="form-control col-6" >
             @Html.DisplayFor(x => x.Name)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(x => x.BirtDate)
         </dt>
-        <dd>
+        <dd class ="form-control col-6">
             @Html.DisplayFor(x => x.BirtDate)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(x => x.BaseSalary)
         </dt>
-        <dd>
+        <dd class ="form-control col-6">
             @Html.DisplayFor(x => x.BaseSalary)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(x => x.Department)
         </dt>
-        <dd>
+        <dd class ="form-control col-6">
             @Html.DisplayFor(x => x.Department.Name)
         </dd>
 
     </dl>
 
+
     
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-gustavo">Back to List</a>
+        <a asp-action="Edit" class="btn btn-gustavo" asp-route-id="@Model.Id">Edit</a>
+       
     </div>
     
 

@@ -1,7 +1,7 @@
 ﻿@model SalesWebMVC.Models.ViewModels.SellerFormViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -9,11 +9,11 @@
 <h4>Seller</h4>
 <hr />
 
-<form asp-action="Create">
-    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+<form asp-action="Edit">
+
 
     <div class="row">
-
+        <input type="hidden" asp-for="Seller.Id" />
         <div class="col-6 col-md">
             <label asp-for="Seller.Name" class="control-label"></label>
             <span asp-validation-for="Seller.Name" class="text-danger"></span>
@@ -45,11 +45,13 @@
     </div>
     <div class="row mx-md-n5">
         <div class="col py-3 px-md-5">
-            <button asp-action="Index" class="btn btn-gustavo">Back to List</button>
-            <input type="submit" value="Create" class="btn btn-gustavo" />
+            <button asp-action="Index" class="btn btn-outline-primary">Back to List</button>
+            <input type="submit" value="Save" class="btn btn-outline-primary" />
         </div>
 
     </div>
+
+
 
 
 </form>
