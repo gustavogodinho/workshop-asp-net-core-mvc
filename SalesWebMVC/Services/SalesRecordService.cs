@@ -61,20 +61,20 @@ namespace SalesWebMVC.Services
         }
 
         public List<NoSales> SellersNoSales()
-        {             
+        {
             // Left join 
-            var noSales = from s in _context.Sellers
-                      join v in _context.SalesRecords on s.Id equals v.Seller.Id into leftSales
-                      from v2 in leftSales.DefaultIfEmpty()
-                      where v2.Id == null
-                      join d in _context.Department on s.DepartmentId equals d.Id
-                      select new NoSales { NameSeller = s.Name, Email = s.Email, Name = d.Name };
+            var noSales = (from s in _context.Sellers
+                           join v in _context.SalesRecords on s.Id equals v.Seller.Id into leftSales
+                           from v2 in leftSales.DefaultIfEmpty()
+                           where v2.Id == null
+                           join d in _context.Department on s.DepartmentId equals d.Id
+                           select new NoSales { NameSeller = s.Name, Email = s.Email, Name = d.Name }).ToList();
 
 
-            return noSales.ToList();
+            return noSales;
         }
 
-      
+
 
     }
 }
