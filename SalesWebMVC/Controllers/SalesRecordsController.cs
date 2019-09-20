@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SalesWebMVC.Controllers
@@ -37,7 +34,7 @@ namespace SalesWebMVC.Controllers
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
 
-            System.Collections.Generic.List<Models.SalesRecord> result = await _salesRecordsService.FindByDateAsync(minDate, maxDate);
+            List<Models.SalesRecord> result = await _salesRecordsService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
 
@@ -61,15 +58,11 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult NotSales()
         {
-           
-            var r = _salesRecordsService.SellersNoSales();
-
-            
+            List<Models.NoSales> r = _salesRecordsService.SellersNoSales();
             return View(r);
-
         }
 
-      
+
 
     }
 }

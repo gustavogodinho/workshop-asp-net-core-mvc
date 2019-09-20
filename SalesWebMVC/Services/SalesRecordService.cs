@@ -62,19 +62,37 @@ namespace SalesWebMVC.Services
 
         public List<NoSales> SellersNoSales()
         {
-            return  _context.Query<NoSales>(
+
+            //List<NoSales> noSales = new List<NoSales>();
+            ////var query = from sl in _context.Sellers
+            ////            join dp in _context.Department on sl.DepartmentId equals dp.Id
+            ////            select new { sl.Name };
+
+            //noSales = from s in _context.Sellers
+            //          join v in _context.SalesRecords on s.Id equals v.Seller.Id into leftSales
+            //          from v2 in leftSales.DefaultIfEmpty()
+            //          where v2.Id == null
+            //          join d in _context.Department on s.DepartmentId equals d.Id
+            //          select new { NameSeller = s.Name, s.Email, d.Name };
+
+
+            return _context.Query<NoSales>(
                 $@"select   s.Name as NameSeller,
                             s.Email,
-	                        d.Name
-	                from sellers s 
-		                left join salesRecords sr
-		                  on s.Id = sr.SellerId
-		                inner join Department d
-		                  on s.DepartmentId = d.Id
-		                and sr.Id is null"
+                         d.Name
+                 from sellers s 
+                  left join salesRecords sr
+                    on s.Id = sr.SellerId
+                  inner join Department d
+                    on s.DepartmentId = d.Id
+                  and sr.Id is null"
                 ).ToList();
+               
+
+            //return noSales;
         }
 
       
+
     }
 }
